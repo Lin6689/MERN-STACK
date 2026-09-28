@@ -1,0 +1,10 @@
+Username
+
+dhavalll852004_db_user
+
+Password
+HAy6x0lelQWI4WvP
+
+3. Connect to your MongoDB deployment.
+
+mongodb+srv://<db_username>:HAy6x0lelQWI4WvP@cluster0.1okxzjw.mongodb.net/
