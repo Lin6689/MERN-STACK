@@ -10,24 +10,26 @@ export default function Navbar({ cartCount, wishlistCount }) {
         <div className="flex justify-between items-center h-16">
           
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-indigo-600">
+          <Link to="/" className="text-2xl font-bold text-red-900">
             ShopEase
           </Link>
-
+         
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-indigo-600 font-medium">
+          <div className="hidden md:flex items-center space-x-8 text-red-900">
+            <Link to="/" className=" font-medium">
               Home
             </Link>
-            <Link to="/shop" className="text-gray-700 hover:text-indigo-600 font-medium">
+            <Link to="/shop" className=" font-medium">
               Shop
             </Link>
-            <Link to="/colors" className="text-gray-700 hover:text-indigo-600 font-medium">
+            <Link to="/colors" className=" font-medium">
               Color Stories
             </Link>
-            <Link to="/contact" className="text-gray-700 hover:text-indigo-600 font-medium">
+            <Link to="/contact" className=" font-medium">
               Contact
             </Link>
+            <Link to="/login">Login</Link>
+<Link to="/register">Register</Link>
             
           </div>
 
@@ -37,7 +39,7 @@ export default function Navbar({ cartCount, wishlistCount }) {
             <Link to="/wishlist" className="relative">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-gray-700 hover:text-red-500"
+                className="h-6 w-6 text-red-900 hover:text-red-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -60,7 +62,7 @@ export default function Navbar({ cartCount, wishlistCount }) {
             <Link to="/cart" className="relative">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-gray-700 hover:text-indigo-600"
+                className="h-6 w-6 text-red-900 hover:text-red-900"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

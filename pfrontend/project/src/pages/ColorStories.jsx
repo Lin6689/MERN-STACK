@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 const colors = [
   {
     name: "Crimson Red",
+    filterName: "shoes",
     meaning: "Passion & Energy",
     description:
       "Red is the color of intensity and confidence. Wearing red awakens your inner fire and draws attention naturally. Perfect when you want to feel powerful and alive.",
@@ -12,6 +13,7 @@ const colors = [
   },
   {
     name: "Ocean Blue",
+    filterName: "blue",
     meaning: "Calm & Trust",
     description:
       "Blue brings peace to the mind and soul. It creates a sense of reliability and quiet strength. Ideal for days when you want to feel centered and composed.",
@@ -21,6 +23,7 @@ const colors = [
   },
   {
     name: "Emerald Green",
+    filterName: "green",
     meaning: "Growth & Harmony",
     description:
       "Green connects you to nature and balance. It softens the spirit and brings a refreshing sense of renewal. Wear it when you seek harmony and calm energy.",
@@ -30,6 +33,7 @@ const colors = [
   },
   {
     name: "Soft Ivory",
+    filterName: "stone",
     meaning: "Purity & Simplicity",
     description:
       "Ivory speaks of quiet elegance and clarity. It reflects simplicity and grace. A timeless choice when you want to feel light, clean, and refined.",
@@ -39,6 +43,7 @@ const colors = [
   },
   {
     name: "Midnight Black",
+    filterName: "black",
     meaning: "Power & Mystery",
     description:
       "Black is the ultimate expression of sophistication. It holds mystery and strength. Wear black when you want to feel protected, elegant, and in control.",
@@ -48,7 +53,7 @@ const colors = [
   },
   {
     name: "Blush Pink",
-    meaning: "Romance & Softness",
+    meaning: "pink",
     description:
       "Pink carries gentle warmth and tenderness. It softens your presence and opens the heart. Perfect for moments when you want to feel delicate and loved.",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpFDgvYOag_btHWc1ZQOpIOrqgZjczWVXjnLr8wnOMOstSzeigkEA3YQJy&s=10",
@@ -57,6 +62,7 @@ const colors = [
   },
   {
     name: "Golden Amber",
+    filterName: "golden",
     meaning: "Warmth & Optimism",
     description:
       "Amber radiates joy and golden energy. It lifts the mood and brings a sunny confidence. Wear it when you want to feel bright and optimistic.",
@@ -66,6 +72,7 @@ const colors = [
   },
   {
     name: "Lavender Mist",
+    filterName: "purple",
     meaning: "Creativity & Calm",
     description:
       "Lavender inspires imagination while keeping a dreamy calm. It balances creativity with peace. Ideal when you want to feel inspired yet soft.",
@@ -142,6 +149,12 @@ export default function ColorStories() {
                   <p className="text-sm sm:text-base text-neutral-500 leading-relaxed">
                     {color.description}
                   </p>
+                  <Link
+  to={`/shop?color=${encodeURIComponent(color.filterName)}`}
+  className="inline-block mt-6 px-6 py-3 rounded-full bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-800 transition"
+>
+  {color.name}
+</Link>
                 </div>
               </div>
 

@@ -7,6 +7,11 @@ import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import ColorStories from "./pages/ColorStories";
 import ContactForm from "./pages/ContactForm";
+import Footer from "./components/Footer";
+import ProductDetail from "./pages/ProductDetail";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Admin from "./pages/Admin";
 function App() {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
@@ -82,6 +87,16 @@ function App() {
                 />
               }
             />
+            <Route
+  path="/product/:id"
+  element={
+    <ProductDetail
+      onAddToCart={handleAddToCart}
+      onToggleWishlist={handleToggleWishlist}
+      wishlist={wishlist}
+    />
+  }
+/>
           
 
 
@@ -89,6 +104,9 @@ function App() {
 
 <Route path="/colors" element={<ColorStories />} />
 <Route path="/contact" element={<ContactForm />} />
+<Route path="/login" element={<Login />} />
+<Route path="/register" element={<Register />} />
+<Route path="/admin" element={<Admin />} />
             <Route
               path="/cart"
               element={
@@ -111,12 +129,8 @@ function App() {
             />
           </Routes>
         </main>
-
-        <footer className="bg-gray-900 text-white py-8 mt-12">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <p className="text-gray-400">© 2026 ShopEase. All rights reserved.</p>
-          </div>
-        </footer>
+<Footer/>
+        
       </div>
     </BrowserRouter>
   );

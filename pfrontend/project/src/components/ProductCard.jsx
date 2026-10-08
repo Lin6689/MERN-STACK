@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function ProductCard({
   product,
   onAddToCart,
@@ -11,19 +13,22 @@ export default function ProductCard({
     product.image ||
     "https://via.placeholder.com/400";
   const category = product.category?.title || product.category || "General";
+  const productId = product._id || product.id;
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition overflow-hidden group">
+    <div className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition overflow-hidden group text-red-900">
       <div className="relative overflow-hidden">
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-64 object-cover group-hover:scale-105 transition duration-500"
-        />
+        <Link to={`/product/${productId}`}>
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-64 object-cover group-hover:scale-105 transition duration-500"
+          />
+        </Link>
 
         <button
           onClick={() => onToggleWishlist(product)}
-          className="absolute top-3 right-3 bg-white p-2 rounded-full shadow hover:bg-red-50 transition"
+          className="absolute top-3 right-3 bg-white p-2 rounded-full shadow hover:bg-red-50 transition z-10"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -45,14 +50,19 @@ export default function ProductCard({
       </div>
 
       <div className="p-5">
-        <p className="text-sm text-gray-500 mb-1 capitalize">{category}</p>
-        <h3 className="font-semibold text-lg mb-2 line-clamp-2">{name}</h3>
+        <p className="text-sm text-red-900 mb-1 capitalize">{category}</p>
+
+        <Link to={`/product/${productId}`}>
+          <h3 className="font-semibold text-lg mb-2 line-clamp-2 hover:text-indigo-600 transition">
+            {name}
+          </h3>
+        </Link>
 
         <div className="flex items-center justify-between mt-3">
-          <span className="text-indigo-600 font-bold text-xl">₹{price}</span>
+          <span className="text-red-900 font-bold text-xl">₹{price}</span>
           <button
             onClick={() => onAddToCart(product)}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
+            className="bg-red-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
           >
             Add to Cart
           </button>
