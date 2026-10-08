@@ -1,7 +1,9 @@
 const express = require('express');
+const { auth, isAdmin } = require("../middleware/auth");
 const Product = require('../models/product');
 const upload = require('../middleware/upload');
 const cloudinary = require('../config/cloudinary');
+
 const fs = require('fs');
 
 const router = express.Router();
@@ -285,7 +287,7 @@ router.get('/', async (req, res) => {
 });
 
 // ===================== CREATE PRODUCT (Multer + Cloudinary) =====================
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', auth, isAdmin, upload.single('image'), async (req, res) => {
   try {
     console.log("BODY →", req.body);
     console.log("FILE →", req.file);
@@ -351,7 +353,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // ===================== UPDATE PRODUCT =====================
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findByIdAndUpdate(id, req.body, {

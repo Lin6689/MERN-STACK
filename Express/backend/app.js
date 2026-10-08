@@ -12,6 +12,7 @@ var indexRouter = require('./routes/index');
 var categoryRouter = require('./routes/category');
 var productRouter = require('./routes/product');
 var todosRouter = require('./routes/todos');
+var authRouter = require("./routes/auth");
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use('/', indexRouter);
 app.use('/categories', categoryRouter);   // Fixed
 app.use('/product', productRouter);      // Fixed
 app.use('/todos', todosRouter);           // Fixed
+app.use("/api/auth", authRouter);
 
 // ===== MongoDB Connection (Your Database) =====
 const DB_STR = "mongodb+srv://dhavalll852004_db_user:HAy6x0lelQWI4WvP@cluster0.1okxzjw.mongodb.net/dhaval";
