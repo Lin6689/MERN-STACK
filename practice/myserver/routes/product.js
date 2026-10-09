@@ -1,42 +1,71 @@
-var express = require('express');
-var router = express.Router();
+const express = require("express");
+const Product = require("../models/product");
+const Category = require("../models/category");
+const upload = require("../middleware/upload");
+const router = express.Router();
 
-const products = [
-  { id: 1, name: "IMLY", category: "Food & Beverages", price: 150, inStock: true },
-  { id: 2, name: "Kiwi", category: "Fresh Fruits", price: 80, inStock: true },
-  { id: 3, name: "Avagandu", category: "Groceries", price: 250, inStock: false },
-  { id: 4, name: "Wireless Mouse", category: "Electronics", price: 799, inStock: true },
-  { id: 5, name: "Mechanical Keyboard", category: "Electronics", price: 2499, inStock: true },
-  { id: 6, name: "Bluetooth Speaker", category: "Electronics", price: 1299, inStock: true },
-  { id: 7, name: "Green Tea Bags", category: "Food & Beverages", price: 350, inStock: true },
-  { id: 8, name: "Organic Honey", category: "Groceries", price: 499, inStock: false },
-  { id: 9, name: "Running Shoes", category: "Footwear", price: 2999, inStock: true },
-  { id: 10, name: "Cotton T-Shirt", category: "Apparel", price: 699, inStock: true },
-  { id: 11, name: "Stainless Steel Water Bottle", category: "Home & Kitchen", price: 599, inStock: true },
-  { id: 12, name: "Notebook", category: "Stationery", price: 120, inStock: true },
-  { id: 13, name: "Gel Pens (Pack of 5)", category: "Stationery", price: 150, inStock: false },
-  { id: 14, name: "Desk Lamp", category: "Home & Kitchen", price: 899, inStock: true },
-  { id: 15, name: "Yoga Mat", category: "Fitness", price: 999, inStock: true }
-];
+// seed 3 products
+router.get("/seed", async (req, res) => {
+  await Product.deleteMany({});
+  await Category.deleteMany({});
 
-/* GET users listing. */
+  const cat = await Category.create({ title: "Fashion" });
 
-router.get('/:id', async (req, res) => {
+  await Product.insertMany([
+    {
+    title: "White Shirt",
+    price: 999,
+    description: "Cotton shirt",
+    image: "https://picsum.photos/id/1011/400/300",
+  },
+  {
+    title: "Black Jeans",
+    price: 1499,
+    description: "Slim jeans",
+    image: "https://picsum.photos/id/1015/400/300",
+  },
+  {
+    title: "Sneakers",
+    price: 1999,
+    description: "Casual shoes",
+    image: "https://picsum.photos/id/103/400/300",
+  },
+ {
+    title: "Cap",
+    price: 499,
+    description: "Cotton baseball cap",
+    image: "https://picsum.photos/id/201/400/300",
+  },
+  ]);
+
+  res.json({ message: "Seeded successfully" });
+});
+
+router.get("/", async (req, res) => {
+  const products = await Product.find().populate("category", "title");
+  res.json(products);
+});
+router.post("/", upload.single("image"), async (req, res) => {
   try {
-    const {id} = req.params; 
-    const product = await Product.findById(id);
-    res.status(200).json ({
-      Message : "product fetched succesfully", data : product,
+    const product = await Product.create({
+      title: req.body.title,
+      price: Number(req.body.price) || 0,
+      description: req.body.description || "",
+      image: req.file ? `http://localhost:3000/uploads/${req.file.filename}` : "",
     });
-  } catch(error) {
-    console.log(error);
-    res.status(500).json({
-      message: "Product fetching failed",
-      error: error.message,
-    });
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-})
-
-
+});
+router.put("/:id", async (req, res) => {
+  const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.json(product);
+}); 
+// delete
+router.delete("/:id", async (req, res) => {
+  await Product.findByIdAndDelete(req.params.id);
+  res.json({ message: "Deleted" });
+});
 
 module.exports = router;
