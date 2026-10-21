@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/product', productRouter);
-app.use('/categories', categoryRouter);
+app.use("/categories", require("./routes/category"));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const DB_STR = "mongodb+srv://dhavalll852004_db_user:HAy6x0lelQWI4WvP@cluster0.1okxzjw.mongodb.net/dhaval";

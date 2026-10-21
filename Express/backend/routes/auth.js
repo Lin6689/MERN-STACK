@@ -33,11 +33,20 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // add this
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password required" });
+    }
+
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "User not found" });
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Wrong password" });
+    if (!isMatch) {
+      return res.status(400).json({ message: "Wrong password" });
+    }
 
     const token = jwt.sign(
       { userId: user._id, role: user.role },
@@ -45,7 +54,7 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.json({ message: "Login successful", token, role: user.role });
+    res.json({ token, role: user.role, userId: user._id, name: user.name, image: user.image || "", });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -12,45 +12,42 @@ const router = express.Router();
 // ===================== SEED (sample products) =====================
 router.get('/seed', async (req, res) => {
   try {
-    const Category = require('../models/category'); // make sure this model exists
+    const Category = require('../models/category');
 
-    // 1) Clear old data
     await Product.deleteMany({});
     await Category.deleteMany({});
 
-    // 2) Create categories
     const categories = await Category.insertMany([
-  { title: "Shirts" },
-  { title: "Pants" },
-  { title: "Jackets" },
-  { title: "Shoes" },
-  { title: "Accessories" },
-  { title: "T-Shirts" },
-  { title: "Watches" },
-  { title: "Bags" },
-  { title: "Winter Wear" },
-  { title: "Sports" },
-  { title: "furnic" },
-  { title: "bas" },
-  { title: "summer cap" },
-  
-]);
-    // helper to find category id by title
+      { title: "Shirts" },
+      { title: "Pants" },
+      { title: "Jackets" },
+      { title: "Shoes" },
+      { title: "Accessories" },
+      { title: "T-Shirts" },
+      { title: "Watches" },
+      { title: "Bags" },
+      { title: "Winter Wear" },
+      { title: "Sports" },
+      { title: "furnic" },
+      { title: "bas" },
+      { title: "summer cap" },
+    ]);
+
     const cat = (name) => categories.find((c) => c.title === name)._id;
 
-    // 3) Products with categories
     const sampleProducts = [
       {
         title: "Classic White Shirt",
         price: 1299,
+        discount: 20,
         description: "Premium cotton formal shirt",
         category: cat("Shirts"),
         images: [{ url: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600" }],
       },
-     
       {
         title: "Oversized Hoodie",
         price: 1599,
+        discount: 15,
         description: "Soft fleece oversized hoodie",
         category: cat("Jackets"),
         images: [{ url: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600" }],
@@ -58,6 +55,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Leather Sneakers",
         price: 2499,
+        discount: 10,
         description: "Minimal white leather sneakers",
         category: cat("Shoes"),
         images: [{ url: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600" }],
@@ -65,6 +63,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Wool Blend Coat",
         price: 3999,
+        discount: 25,
         description: "Warm elegant winter coat",
         category: cat("Jackets"),
         images: [{ url: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=600" }],
@@ -72,6 +71,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Casual T-Shirt",
         price: 799,
+        discount: 5,
         description: "Soft cotton everyday t-shirt",
         category: cat("T-Shirts"),
         images: [{ url: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600" }],
@@ -79,6 +79,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Denim Jacket",
         price: 2299,
+        discount: 18,
         description: "Classic blue denim jacket",
         category: cat("Jackets"),
         images: [{ url: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=600" }],
@@ -86,6 +87,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Chino Pants",
         price: 1499,
+        discount: 12,
         description: "Comfortable slim chino pants",
         category: cat("Pants"),
         images: [{ url: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600" }],
@@ -93,6 +95,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Knit Sweater",
         price: 1799,
+        discount: 20,
         description: "Soft knitted winter sweater",
         category: cat("Jackets"),
         images: [{ url: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600" }],
@@ -100,6 +103,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Running Shoes",
         price: 2799,
+        discount: 15,
         description: "Lightweight performance running shoes",
         category: cat("Shoes"),
         images: [{ url: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600" }],
@@ -107,6 +111,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Linen Shirt",
         price: 1399,
+        discount: 10,
         description: "Breathable summer linen shirt",
         category: cat("Shirts"),
         images: [{ url: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600" }],
@@ -114,6 +119,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Cargo Pants",
         price: 1699,
+        discount: 8,
         description: "Utility style cargo pants",
         category: cat("Pants"),
         images: [{ url: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600" }],
@@ -121,6 +127,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Bomber Jacket",
         price: 2599,
+        discount: 22,
         description: "Stylish bomber jacket",
         category: cat("Jackets"),
         images: [{ url: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600" }],
@@ -128,6 +135,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Polo T-Shirt",
         price: 999,
+        discount: 5,
         description: "Classic fitted polo t-shirt",
         category: cat("T-Shirts"),
         images: [{ url: "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600" }],
@@ -135,6 +143,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Formal Trousers",
         price: 1599,
+        discount: 10,
         description: "Office wear formal trousers",
         category: cat("Pants"),
         images: [{ url: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600" }],
@@ -142,6 +151,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Canvas Backpack",
         price: 1899,
+        discount: 15,
         description: "Durable everyday canvas backpack",
         category: cat("Accessories"),
         images: [{ url: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600" }],
@@ -149,6 +159,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Leather Belt",
         price: 899,
+        discount: 0,
         description: "Genuine leather formal belt",
         category: cat("Accessories"),
         images: [{ url: "https://images.unsplash.com/photo-1624222247344-550fb60583fd?w=600" }],
@@ -156,6 +167,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Sunglasses",
         price: 1299,
+        discount: 20,
         description: "UV protected stylish sunglasses",
         category: cat("Accessories"),
         images: [{ url: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600" }],
@@ -163,6 +175,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Wrist Watch",
         price: 3499,
+        discount: 30,
         description: "Minimal analog wrist watch",
         category: cat("Accessories"),
         images: [{ url: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600" }],
@@ -170,6 +183,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Baseball Cap",
         price: 699,
+        discount: 0,
         description: "Adjustable cotton baseball cap",
         category: cat("Accessories"),
         images: [{ url: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600" }],
@@ -177,6 +191,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Chelsea Boots",
         price: 2999,
+        discount: 18,
         description: "Leather chelsea boots",
         category: cat("Shoes"),
         images: [{ url: "https://images.unsplash.com/photo-1638247025967-b4e38f787b76?w=600" }],
@@ -184,6 +199,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Flannel Shirt",
         price: 1499,
+        discount: 12,
         description: "Warm checked flannel shirt",
         category: cat("Shirts"),
         images: [{ url: "https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?w=600" }],
@@ -191,6 +207,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Track Pants",
         price: 1199,
+        discount: 10,
         description: "Comfortable athletic track pants",
         category: cat("Pants"),
         images: [{ url: "https://images.unsplash.com/photo-1506629082955-511b1aa78283?w=600" }],
@@ -198,6 +215,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Graphic T-Shirt",
         price: 899,
+        discount: 5,
         description: "Printed graphic cotton t-shirt",
         category: cat("T-Shirts"),
         images: [{ url: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600" }],
@@ -205,6 +223,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Windbreaker",
         price: 2199,
+        discount: 20,
         description: "Lightweight weather resistant jacket",
         category: cat("Jackets"),
         images: [{ url: "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=600" }],
@@ -212,6 +231,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Oxford Shoes",
         price: 3299,
+        discount: 15,
         description: "Classic formal oxford shoes",
         category: cat("Shoes"),
         images: [{ url: "https://images.unsplash.com/photo-1614252231338-798d7d0b5613?w=600" }],
@@ -219,6 +239,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Crewneck Sweatshirt",
         price: 1399,
+        discount: 10,
         description: "Soft crewneck sweatshirt",
         category: cat("Jackets"),
         images: [{ url: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600" }],
@@ -226,6 +247,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Relaxed Fit Shorts",
         price: 999,
+        discount: 0,
         description: "Comfortable summer shorts",
         category: cat("Pants"),
         images: [{ url: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600" }],
@@ -233,6 +255,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Quilted Jacket",
         price: 2799,
+        discount: 22,
         description: "Lightweight quilted jacket",
         category: cat("Jackets"),
         images: [{ url: "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=600" }],
@@ -240,6 +263,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "Merino Wool Scarf",
         price: 1099,
+        discount: 8,
         description: "Soft merino wool scarf",
         category: cat("Accessories"),
         images: [{ url: "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=600" }],
@@ -247,6 +271,7 @@ router.get('/seed', async (req, res) => {
       {
         title: "High Top Sneakers",
         price: 2399,
+        discount: 15,
         description: "Casual high top sneakers",
         category: cat("Shoes"),
         images: [{ url: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600" }],
@@ -254,18 +279,18 @@ router.get('/seed', async (req, res) => {
       {
         title: "Structured Blazer",
         price: 3599,
+        discount: 25,
         description: "Tailored formal blazer",
         category: cat("Jackets"),
         images: [{ url: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600" }],
       },
     ];
 
-    await Product.deleteMany({});
     await Product.insertMany(sampleProducts);
 
     res.json({
       success: true,
-      message: `${sampleProducts.length} products added successfully`
+      message: `${sampleProducts.length} products added successfully`,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -306,7 +331,7 @@ router.post('/', auth, isAdmin, upload.single('image'), async (req, res) => {
       imageData.push({
         url: result.secure_url,
         public_id: result.public_id,
-      }); 
+      });
 
       fs.unlinkSync(req.file.path);
     }
@@ -314,6 +339,7 @@ router.post('/', auth, isAdmin, upload.single('image'), async (req, res) => {
     const product = await Product.create({
       title: req.body.title,
       price: Number(req.body.price) || 0,
+      discount: Number(req.body.discount) || 0,
       description: req.body.description || "",
       category: req.body.category || undefined,
       images: imageData,
@@ -333,6 +359,7 @@ router.post('/', auth, isAdmin, upload.single('image'), async (req, res) => {
     });
   }
 });
+
 // ===================== GET SINGLE PRODUCT =====================
 router.get('/:id', async (req, res) => {
   try {
@@ -356,7 +383,14 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', auth, isAdmin, async (req, res) => {
   try {
     const { id } = req.params;
-    const product = await Product.findByIdAndUpdate(id, req.body, {
+
+    const updateData = {
+      ...req.body,
+      price: Number(req.body.price),
+      discount: Number(req.body.discount) || 0,
+    };
+
+    const product = await Product.findByIdAndUpdate(id, updateData, {
       new: true,
     });
 

@@ -12,4 +12,18 @@ router.post("/", async (req, res) => {
   res.json(category);
 });
 
+router.put("/:id", async (req, res) => {
+  const category = await Category.findByIdAndUpdate(
+    req.params.id,
+    { title: req.body.title },
+    { new: true }
+  );
+  res.json(category);
+});
+
+router.delete("/:id", async (req, res) => {
+  await Category.findByIdAndDelete(req.params.id);
+  res.json({ message: "Deleted" });
+});
+
 module.exports = router;

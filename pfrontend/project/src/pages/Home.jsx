@@ -100,10 +100,10 @@ export default function Home() {
               <span className="text-indigo-600 dark:text-indigo-400 text-xs uppercase tracking-[0.2em] font-extrabold mb-3">
                 Limited Time Offer
               </span>
-              <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4 font-['Playfair_Display',serif]">
+              <h2 className="text-3xl text-red-900 md:text-4xl font-extrabold tracking-tight mb-4 font-['Playfair_Display',serif]">
                 Get 25% Off on Your First Order
               </h2>
-              <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-md font-light leading-relaxed">
+              <p className="text-red-900 dark:text-slate-400 mb-8 max-w-md font-light leading-relaxed">
                 Sign up today and enjoy exclusive discounts, early access to sales, and priority shipping options.
               </p>
             </div>
